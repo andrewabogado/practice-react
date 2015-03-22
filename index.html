@@ -2,15 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>First Component</title>
+  <title>State</title>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
 </head>
 <body>
   
-  <!-- container node for JSX -->
-  <div id="jsx"></div>
-  
-  <!-- container node for React.DOM-->
-  <div id="dom"></div>
+  <!-- container node -->
+  <div class="container" id="jsx"></div>
   
   <script src="http://fb.me/react-0.11.1.js"></script>
   <script src="http://fb.me/JSXTransformer-0.11.1.js"></script>
@@ -18,11 +16,24 @@
     /** @jsx React.DOM */
     
     // for JSX
-    var MessageBoxJSX = React.createClass({
+    var MessageBox = React.createClass({
+      
+      getInitialState: function() {
+        return {
+          isVisible: true,
+          titleMessage: 'Hello, World'
+        }
+      },
+      
       render: function() {
+        var inlineStyles = {
+          display: this.state.isVisible ? 'block' : 'none'
+        };
+        
         return (
-          <div className="container">
-            <h1>Hello, World JSX</h1>
+          <div className="jumbotron" style={inlineStyles}>
+            <h1>{this.state.titleMessage}</h1>
+            
             <SubMessage />
           </div>
         );
@@ -39,28 +50,10 @@
       }
     });
     
-    var reactComponentJSX = React.renderComponent (
-      <MessageBoxJSX />,
+    var reactComponent = React.renderComponent (
+      <MessageBox />,
       document.getElementById('jsx')
     );
-    
-    // for React.DOM
-    var MessageBox = React.createClass({
-      render: function() {
-        return React.DOM.div(
-          { className: 'container' },
-          React.DOM.h1(null, 'Hello, World React.DOM'),
-          SubMessage(null)
-        );
-      }
-    });
-    
-    var reactComponentDOM = React.renderComponent(
-      MessageBox(null),
-      document.getElementById('dom')
-    );
-    
-    
   </script>
 </body>
 </html>
