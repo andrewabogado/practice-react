@@ -18,6 +18,11 @@
     // for JSX
     var MessageBox = React.createClass({
       
+      handleAdd: function(e) {
+        console.log(e.target);
+        console.log(this);
+      },
+      
       getInitialState: function() {
         return {
           isVisible: true,
@@ -44,6 +49,7 @@
           <div className="jumbotron" style={inlineStyles}>
             <h1>Hello World!</h1>
             
+            <button className="btn btn-primary" onClick={this.handleAdd}>Add</button>
             { messages }
           </div>
         );
