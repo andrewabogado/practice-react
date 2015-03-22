@@ -1,2 +1,1 @@
-# practice-react
-Getting started with React
+# React Practice: Getting started with React 
