@@ -19,8 +19,16 @@
     var MessageBox = React.createClass({
       
       handleAdd: function(e) {
-        console.log(e.target);
-        console.log(this);
+        // console.log(e.target);
+        // console.log(this);
+        
+        // this.refs.newMessage;
+        var newMessage = this.refs.newMessage.getDOMNode().value; // when the value is clicked, it get the value and stored in this variable
+        // abstracting values from the DOM, refs are the tools to use. example radio or checkbox buttons
+        var newMessages = this.state.messages.concat([newMessage]);
+        this.setState({
+          messages: newMessages
+        });
       },
       
       getInitialState: function() {
@@ -48,7 +56,7 @@
         return (
           <div className="jumbotron" style={inlineStyles}>
             <h1>Hello World!</h1>
-            
+            <input ref="newMessage" type="text" />
             <button className="btn btn-primary" onClick={this.handleAdd}>Add</button>
             { messages }
           </div>
