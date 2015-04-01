@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="http://fb.me/react-0.11.0.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.11.1.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Component Lifecycle</title>
+</head>
+<body>
+
+  <!-- container node -->
+  <div id="app"></div>
+
+  <script type="text/jsx">
+    /** @jsx React.DOM */
+
+    var Dashboard = React.createClass({
+
+      loadData: function() {
+        // just return coz jQuery ajax function returns a promise
+        return $.get('https://gsr-demo.firebaseio-demo.com/' + this.props.url + '/.json');
+      },
+
+      // Hook before the component renders
+      // This method is used to do any checks to the component, before it renders to the page
+      // No access to DOM, though
+      componentWillMount: function() {
+        debugger;
+      },
+
+      // Hook the component after it renders
+      componentDidMount: function() {
+        debugger;
+        this.loadData().then(function(data) {
+          this.setState({
+            metric: data
+          });
+        }.bind(this)); // bind the context to the this key word;   coz if we don't it'l l be mounted to another context
+      },
+
+      getInitialState: function() {
+        return {
+          metric: 0
+        };
+      },
+
+      render: function() {
+        return (
+          <div className="jumbotron">
+            <h2>{this.state.metric}</h2>
+          </div>
+        );
+      }
+    });
+
+    var dashComponent = React.renderComponent(
+      <Dashboard url="metric" />,
+      document.getElementById('app')
+    );
+
+  </script>
+</body>
+</html>
