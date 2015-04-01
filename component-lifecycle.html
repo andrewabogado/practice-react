@@ -55,8 +55,9 @@
         }.bind(this));
       },
 
-      shouldComponentUpdate: function(nextProps, nextState) {
-        return nextState.metric > 100;
+      componentWillUnmount: function() {
+        debugger;
+        $('#tip').tooltip('destroy');
       },
 
       getInitialState: function() {
