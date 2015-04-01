@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="http://fb.me/react-0.11.0.js"></script>
-  <script src="http://fb.me/JSXTransformer-0.11.1.js"></script>
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <meta charset="UTF-8">
-  <title>Component Lifecycle</title>
+  <title>Component Lifecycle - Unmounting</title>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
 </head>
 <body>
 
   <!-- container node -->
   <div id="app"></div>
+
+  <script src="http://fb.me/react-0.11.0.js"></script>
+  <script src="http://fb.me/JSXTransformer-0.11.1.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
   <script type="text/jsx">
     /** @jsx React.DOM */
@@ -36,6 +39,7 @@
           this.setState({
             metric: data
           });
+          $('#tip').tooltip();
         }.bind(this)); // bind the context to the this key word; coz if we don't it'l l be mounted to another context
       },
 
@@ -66,6 +70,7 @@
         return (
           <div className="jumbotron">
             {this.state.lastRoute}
+            <a href="#" id="tip" data-toggle="tooltip" title="Hover!">Hover over me</a>
             <h2>{this.state.metric}</h2>
           </div>
         );
