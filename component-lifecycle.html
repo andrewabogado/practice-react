@@ -26,21 +26,38 @@
       // This method is used to do any checks to the component, before it renders to the page
       // No access to DOM, though
       componentWillMount: function() {
-        debugger;
+        // debugger;
       },
 
       // Hook the component after it renders
       componentDidMount: function() {
-        debugger;
-        this.loadData().then(function(data) {
+        // debugger;
+        this.loadData(this.props.url).then(function(data) {
           this.setState({
             metric: data
           });
-        }.bind(this)); // bind the context to the this key word;   coz if we don't it'l l be mounted to another context
+        }.bind(this)); // bind the context to the this key word; coz if we don't it'l l be mounted to another context
+      },
+
+      componentWillReceiveProps: function(nextProps) {
+        var lastUrl = this.props.url;
+        // debugger;
+        // then since it returns a promise
+        this.loadData(nextProps.url).then(function(data) {
+          this.setState({
+            lastRoute: lastUrl,
+            metric: data // set the metric to the data
+          });
+        }.bind(this));
+      },
+
+      shouldComponentUpdate: function(nextProps, nextState) {
+        return nextState.metric > 100;
       },
 
       getInitialState: function() {
         return {
+          lastRoute: '',
           metric: 0
         };
       },
@@ -48,10 +65,12 @@
       render: function() {
         return (
           <div className="jumbotron">
+            {this.state.lastRoute}
             <h2>{this.state.metric}</h2>
           </div>
         );
       }
+
     });
 
     var dashComponent = React.renderComponent(
